@@ -19,13 +19,18 @@ namespace Bazy
             {
                 conn.Open();//otwieramy połączenie
                 SqlCommand comm = new SqlCommand();
-                comm.CommandText = "Select Count(*) from Ksiazki";
+                comm.CommandText = "Select Count(*) from Ksiazki;";//srednik w cudzyslowie, bo zapytanie sqlowe jest
                 comm.CommandType = System.Data.CommandType.Text;//w zasadzie ta komenda nie jest potrzebna, bo w domyśle komendy są wydawane w tekście... natomiast pokazuje możlwiości i składnię...
                 comm.Connection = conn;//pokazuje z którą bazą danych mamy się połączyć.
-                
-                
                 int ilosc = (int)comm.ExecuteScalar();//--powyższe zapytanie zwraca pojedyńczą wartość, więc można tę komendę zastosować--
                 Console.WriteLine("Ilość książek: {0}.", ilosc);
+
+                comm.CommandText = "Select * from Ksiazki;";
+                SqlDataReader dr = comm.ExecuteReader();//sqldatareader przypomina enumeratora - mozna go potraktowac komenda while
+                while (dr.Read())
+                {
+                    Console.WriteLine("ID książki: {0} -- Tytuł: {1} -- IDKategorii:{2}", dr[0], dr["Tytul"], dr[2]);
+                }
             }
             catch (SqlException ex)//łapiemy wyjątka typowo sqlowego
             {
