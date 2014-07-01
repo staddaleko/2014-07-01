@@ -50,8 +50,6 @@ namespace Bazy
                 dr.Close();
                 #endregion
 
-
-
                 #region Trzecie zapytanie
                 //nazwa kategorii i tytuł książki mamy uzyskać
                 Console.WriteLine("\n\n\n*******************************");
