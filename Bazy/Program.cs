@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;//dodane aby moc użyć "connectionStringSettings" czyli ustawianie połączenia na podstawie pliku konfiguracyjnego
 using System.Data.SqlClient;//dodane na potrzeby połączenia z sql server
 using System.Linq;
 using System.Text;
@@ -12,7 +13,11 @@ namespace Bazy
         static void Main(string[] args)
         {
 
-            string connString = @"Data Source=(local)\SQLEXPRESS;Initial Catalog=Ksiazki;Integrated Security=True;";//logowanie zintegrowane korzysta z windows user account //'@' musi być, bo są backslashe
+            ConnectionStringSettings aa = ConfigurationManager.ConnectionStrings["test"]; //w tych dwóch linijkach
+            string connString = aa.ConnectionString;//pokazujemy, że chcemy korzystać z połączenia z configu
+            
+            //komentujemy, bo connection stringa robimy na podstawie pliku konfiguracyjnego
+            //string connString = @"Data Source=(local)\SQLEXPRESS;Initial Catalog=Ksiazki;Integrated Security=True;";//logowanie zintegrowane korzysta z windows user account //'@' musi być, bo są backslashe
 
             SqlConnection conn = new SqlConnection(connString);
             //piszemy 'starą szkołę', ale pokazuje dokładnie w jaki sposób działa połączenie            
@@ -69,7 +74,7 @@ namespace Bazy
                 #endregion
 
                 #region Dodajemy wpis do bazy danych
-                comm.CommandText = "Insert INTO Autorzy Values(331, 'C#', 'John');";
+                comm.CommandText = "Insert INTO Autorzy Values(696, 'szejset', 'ciewienciesiontciewiendź');";
                 int ile = comm.ExecuteNonQuery();
                 Console.WriteLine();
                 
