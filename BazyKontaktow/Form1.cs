@@ -24,6 +24,12 @@ namespace BazyKontaktow
                 //dataSet.ReadXmlSchema("osobySchema.xml");
                 dataSet.ReadXml("osoby.xml", XmlReadMode.ReadSchema);
             }
+            else
+            {
+                dataSet = Utworz();
+            }
+
+            dataGridView1.DataSource = dataSet.Tables[0];
         }
 
         DataSet dataSet;
