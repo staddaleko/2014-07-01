@@ -14,10 +14,17 @@ namespace Bazy
             string connString = @"Data Source=(local)\SQLEXPRESS;Initial Catalog=Ksiazki;Integrated Security=True;";//logowanie zintegrowane korzysta z windows user account //'@' musi być, bo są backslashe
 
             SqlConnection conn = new SqlConnection(connString);
-//piszemy 'starą szkołę', ale pokazuje dokładnie w jaki sposób działa połączenie            
+            //piszemy 'starą szkołę', ale pokazuje dokładnie w jaki sposób działa połączenie            
             try
             {
                 conn.Open();//otwieramy połączenie
+                SqlCommand comm = new SqlCommand();
+                comm.CommandText = "Select Count(*) from Ksiazki";
+                comm.CommandType = System.Data.CommandType.Text;//w zasadzie ta komenda nie jest potrzebna, bo w domyśle komendy są wydawane w tekście... natomiast pokazuje możlwiości i składnię...
+                comm.Connection = conn;//pokazuje z którą bazą danych mamy się połączyć.
+
+                int ilosc = (int)comm.ExecuteScalar();
+                Console.WriteLine("Ilość książek: {0}", ilosc);
             }
             catch (Exception ex)//łapiemy wyjątka ;)
             {
@@ -25,7 +32,6 @@ namespace Bazy
             }
             finally
             {
-
                 conn.Close();//zamykamy połączenie
             }
             Console.ReadKey();
