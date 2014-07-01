@@ -29,7 +29,7 @@ namespace Bazy
                 SqlDataReader dr = comm.ExecuteReader();//sqldatareader przypomina enumeratora - mozna go potraktowac komenda while
                 while (dr.Read())
                 {
-                    Console.WriteLine("ID książki: {0} -- Tytuł: {1} -- IDKategorii:{2}", dr[0], dr["Tytul"], dr[2]);
+                    Console.WriteLine("ID książki: {0} -- Tytuł: {1} -- IDKategorii:{2}", dr[0], dr["Tytul"], dr.IsDBNull(2)?"BRAK":dr[2]);//ten zapis wyszczególnia BRAK gdy nie ma IDKategorii! :)
                 }
             }
             catch (SqlException ex)//łapiemy wyjątka typowo sqlowego
