@@ -26,6 +26,7 @@ namespace BazyKontaktow
                 dataSet = new DataSet();
                 //dataSet.ReadXmlSchema("osobySchema.xml");
                 dataSet.ReadXml("osoby.xml", XmlReadMode.ReadSchema);
+                dataSet.AcceptChanges();
             }
             else
             {
@@ -58,6 +59,7 @@ namespace BazyKontaktow
         private void button1_Click(object sender, EventArgs e)
         {
             dataSet.WriteXml(NAZWAPLIKU, XmlWriteMode.WriteSchema);
+            dataSet.WriteXml("difdiagram.xml", XmlWriteMode.DiffGram);
 
         }
 
@@ -69,6 +71,16 @@ namespace BazyKontaktow
             {
                 dataSet.WriteXml(dlg.FileName);
             }
+        }
+
+        private void buttonAkceptuj_Click(object sender, EventArgs e)
+        {
+            dataSet.AcceptChanges();//dzięki temu mamy śledzenie zmian w pliku diff-coś tam.
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
