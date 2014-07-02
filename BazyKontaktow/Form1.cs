@@ -14,8 +14,11 @@ namespace BazyKontaktow
 {
     public partial class Form1 : Form
     {
+        const string NAZWAPLIKU = "osoby.xml";
+        
         public Form1()
         {
+            
             InitializeComponent();
 
             if (File.Exists("osoby.xml"))
@@ -50,6 +53,22 @@ namespace BazyKontaktow
             col = dt.Columns.Add("Telefon", typeof(string));//ponownie wykorzystana zmienna 'col'
             col.MaxLength = 9;
             return ds;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            dataSet.WriteXml(NAZWAPLIKU, XmlWriteMode.WriteSchema);
+
+        }
+
+        private void buttonZapiszDane_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();//dialog zapisywania pliku
+            dlg.Filter = "Pliki xml | *.xml";
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                dataSet.WriteXml(dlg.FileName);
+            }
         }
     }
 }
